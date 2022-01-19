@@ -1,0 +1,11 @@
+body {
+  margin: 0 auto;
+  padding: 20px;
+  height: fit-content;
+  max-width: 800px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(to bottom right, rgb(245, 247, 230), rgb(231, 252, 251));
+  position: relative;
+}
