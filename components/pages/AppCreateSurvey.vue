@@ -36,6 +36,7 @@ export default {
     this.$store.commit("setCurrentChildrenPageName", {
       currentRootPageName: "Опросы",
       currentChildrenPageName: "Добавить опрос",
+      currentRootRoute: '/survey'
     });
   },
 };
@@ -60,14 +61,15 @@ export default {
 }
 
 .survey__form {
-  border: 1px solid rgba(153, 205, 50, 0.3);
+  border: 2px solid rgba(153, 205, 50, 0.3);
   border-radius: 2px;
-  padding: 12px;
+  padding: 12px 0;
+  background-color: rgb(250, 250, 250);
 }
 
 .survey__form_title {
   font-size: 12px;
-  margin-top: 0;
+  margin: 0 0 15px 12px;
   color: #ccc;
   line-height: 1.6;
 }

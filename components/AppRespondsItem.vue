@@ -1,69 +1,95 @@
 <template>
   <div class="condition">
     <div class="condition__container">
-      <div class="condition__container_column">
-        <h4 class="condition__title">Условие {{ condition.id }}</h4>
-        <p
-          class="condition__type"
-          v-for="option in condition.options"
-          :key="option.number"
+      <h4 class="condition__title">Условие {{ currentNumber }}</h4>
+      <select
+        class="condition__select"
+        v-model="mainSelectValue"
+        @change="changeSelect"
+      >
+        <option value="" selected disabled>{{ condition.title }}</option>
+        <option
+          v-for="(option, i) in condition.options"
+          :key="i"
+          :value="option"
         >
-          <span
-            class="condition__type_span"
-            v-if="option.number > 1"
-            style="background-color: #cfc"
-          >
-            или
-          </span>
-          {{ condition.optionsType }} {{ option.number }}
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <div v-if="condition.optionsType === 'Диапазон'">
+      <div
+        class="condition__container"
+        v-for="(option, i) in condition.options"
+        :key="option.i"
+      >
+        <p class="condition__type">
+          <span class="condition__type_span" v-if="i > 0">или</span>
+          {{ condition.optionsType }} {{ i + 1 }}
         </p>
-      </div>
+        <div class="condition__container condition__container_min">
+          <div class="condition__option">
+            от
+            <div class="condition__option-box">
+              <p v-if="option === valueSelected">
+                {{ valueSelected.split("-")[0] }}
+              </p>
+            </div>
+          </div>
 
-      <div class="condition__container_column grow">
-        <select class="condition__select" v-model="selectValue">
-          <option value="" selected disabled>{{ condition.title }}</option>
-          <option
-            v-for="option in condition.options"
-            :key="option.number"
-            :value="`${option.from}-${option.to}`"
-          >
-            {{ option.from }}-{{ option.to }} лет
-          </option>
-        </select>
-
-        <div
-          class="condition__container"
-          v-for="option in condition.options"
-          :key="option.number"
-        >
-          <p class="condition__type">
-            от <span class="condition__type_span">{{ option.from }}</span>
-          </p>
-
-          <p class="condition__type">
-            до <span class="condition__type_span">{{ option.to }}</span>
-          </p>
-        </div>
-
-        <div class="condition__container">
-          <button
-            class="condition__button condition__button_succes"
-            type="button"
-            @click.prevent="changeSelect"
-            :disabled="!selectValue"
-          >
-            + Добавить {{ condition.optionsType.toLowerCase() }}
-          </button>
-          <button
-            class="condition__button condition__button_danger"
-            type="button"
-            @click.prevent="removeCondition"
-          >
-            Удалить условие
-          </button>
+          <div class="condition__option">
+            до
+            <div class="condition__option-box">
+              <p v-if="option === valueSelected">
+                {{ valueSelected.split("-")[1] }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div v-else class="condition__container">
+      <p class="condition__type">{{ condition.optionsType }} 1</p>
+      <select
+        style="width: 60%"
+        class="condition__select"
+        v-model="valueSelected"
+        @change="changeSelect"
+      >
+        <option
+          v-for="(option, i) in condition.options"
+          :key="i"
+          :value="option"
+        >
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <div class="condition__container condition__container_min">
+      <button
+        :class="{ condition__button_cursor: !valueSelected }"
+        class="condition__button condition__button_succes"
+        type="button"
+        @click.prevent="addValue"
+        :disabled="!valueSelected"
+      >
+        Добавить {{ condition.optionsType.toLowerCase() }}
+      </button>
+      <button
+        class="condition__button condition__button_danger"
+        type="button"
+        @click.prevent="removeCondition"
+      >
+        Удалить условие
+      </button>
+    </div>
+
+    <span v-if="visibleAnd" class="condition__type_span condition__span_shift">
+      и
+    </span>
   </div>
 </template>
 
@@ -77,26 +103,41 @@ export default {
       type: Object,
       required: true,
     },
+    conditionsLength: Number,
+    currentNumber: Number,
   },
 
   data() {
     return {
-      selectValue: "",
-      form: {},
+      mainSelectValue: "",
+      valueSelected: "",
+      visibleAnd: this.$props.currentNumber !== this.$props.conditionsLength,
     };
   },
 
   methods: {
-    changeSelect() {
+    changeSelect(e) {
+      this.valueSelected = e.target.value;
+      this.mainSelectValue = "";
+    },
+
+    addValue() {
       this.$emit(
         "changeForm",
         this.$props.condition.fieldName,
-        this.selectValue
+        this.valueSelected
       );
+      this.valueSelected = "";
     },
 
     removeCondition() {
       this.$store.commit("removeCondition", this.$props.condition.id);
+    },
+  },
+
+  watch: {
+    conditionsLength(newVal) {
+      this.visibleAnd = this.$props.currentNumber !== newVal;
     },
   },
 };
@@ -107,65 +148,103 @@ export default {
   margin: 0;
 }
 
+.condition {
+  border-bottom: 1px solid rgba(153, 205, 50, 0.3);
+  background-color: rgba(221, 255, 153, 0.1);
+  padding: 15px 12px 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .condition__container {
   display: flex;
   justify-content: space-between;
-}
-
-.condition__container_column {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  width: 100%;
   margin-bottom: 10px;
 }
 
-.grow {
-  flex-grow: 22;
-  margin-left: 50px;
+.condition__container_min {
+  max-width: 350px;
+  justify-content: flex-start;
+  margin-left: auto;
 }
 
 .condition__title {
   color: rgb(168, 103, 4);
-  margin-bottom: 20px;
-}
-
-.condition__select {
-  width: 100%;
-  height: 26px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .condition__type {
-  font-size: 14px;
+  margin: 0;
   font-weight: bold;
-  margin: 0 10px 20px 0;
 }
 
 .condition__type_span {
   border: 1px solid #ccc;
   border-radius: 3px;
-  padding: 3px 20px;
+  background-color: rgb(238, 255, 205);
+  margin-right: 5px;
+  padding: 3px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.condition__span_shift {
+  width: 18px;
+  position: relative;
+  top: 14px;
+  text-align: center;
+}
+
+.condition__select {
+  width: 350px;
+  height: 26px;
+  border: 2px solid #ccc;
+  outline: none;
+}
+
+.condition__option {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 10px 0 0;
+  display: flex;
+  align-items: center;
+}
+
+.condition__option-box {
+  border: 1px solid #ccc;
+  border-radius: 3px;
   background-color: rgb(255, 255, 255);
-  margin: 0 5px 0;
+  margin: 0 5px;
+  width: 60px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .condition__button {
   font-size: 12px;
   font-weight: bold;
   border-radius: 4px;
-  height: 36px;
+  height: 30px;
   box-sizing: border-box;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.condition__button_cursor {
+  cursor: auto;
 }
 
 .condition__button_succes {
-  border: 2px solid #cfc;
+  border: 2px solid rgb(105, 177, 105);
   background-color: rgba(204, 255, 204, 0.3);
 }
 
 .condition__button_danger {
   border: 2px solid rgb(248, 193, 211);
   background-color: rgba(248, 193, 211, 0.5);
-  margin-left: 20px;
+  margin-left: auto;
 }
 </style>

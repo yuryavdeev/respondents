@@ -10,19 +10,32 @@ export const state = () => ({
   currentRootPageName: "", // - "Пользователи"
   currentRootRoute: "", // - "/users"
   currentChildrenPageName: "", // - "Добавить опрос"
+  conditions: [],
 
-  conditions: [
+  initialConditions: [
     {
       title: 'Возраст респондента',
       fieldName: 'age',
       id: 1,
       optionsType: 'Диапазон',
-      options: [
-        { number: 1, from: 18, to: 40 },
-        { number: 2, from: 41, to: 99 },
-      ]
+      options: ['18-40', '41-99']
     },
-  ]
+    {
+      title: 'Тип карты лояльности',
+      fieldName: 'cardType',
+      id: 2,
+      optionsType: 'Тип',
+      options: ['Gold', 'Silver', 'Classic']
+    },
+    {
+      title: 'Статус карты лояльности',
+      fieldName: 'cardStatus',
+      id: 3,
+      optionsType: 'Статус',
+      options: ['Активна', 'Заблокирована']
+    },
+  ],
+
 })
 
 
@@ -40,12 +53,30 @@ export const mutations = {
   setCurrentChildrenPageName(state, data) {
     state.currentRootPageName = data.currentRootPageName
     state.currentChildrenPageName = data.currentChildrenPageName
+    state.currentRootRoute = data.currentRootRoute
+
+  },
+
+  addCondition(state, name) {
+    state.conditions.push(state.initialConditions.find(condition => condition.title === name))
   },
 
   removeCondition(state, id) {
-    state.conditions = state.conditions.filter(condition => {
-      condition.id !== id
-    })
+    console.log(state.conditions)
+    state.conditions = state.conditions.filter(condition => condition.id !== id)
+  }
+}
+
+
+export const actions = {
+  async addResult({ state }) {
+    try {
+      await setTimeout(() => {
+        return true
+      }, 100)
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -73,5 +104,9 @@ export const getters = {
 
   conditions(state) {
     return state.conditions
+  },
+
+  initialConditions(state) {
+    return state.initialConditions
   }
 }
