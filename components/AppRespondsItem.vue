@@ -9,8 +9,8 @@
       >
         <option value="" selected disabled>{{ condition.title }}</option>
         <option
-          v-for="(option, i) in condition.options"
-          :key="i"
+          v-for="option in condition.options"
+          :key="option"
           :value="option"
         >
           {{ option }}
@@ -22,7 +22,7 @@
       <div
         class="condition__container"
         v-for="(option, i) in condition.options"
-        :key="option.i"
+        :key="option"
       >
         <p class="condition__type">
           <span class="condition__type_span" v-if="i > 0">или</span>
@@ -59,8 +59,8 @@
         @change="changeSelect"
       >
         <option
-          v-for="(option, i) in condition.options"
-          :key="i"
+          v-for="option in condition.options"
+          :key="option"
           :value="option"
         >
           {{ option }}
