@@ -19,9 +19,7 @@ div {
   margin: 100px auto 0;
 }
 
-h1,
-h2 {
-
+h1, h2 {
   color: red;
 }
 </style>

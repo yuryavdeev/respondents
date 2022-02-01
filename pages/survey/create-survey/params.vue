@@ -1,11 +1,5 @@
 <template>
   <div>
-    <PagesAppCreateSurveyParams />
+    <FormParams />
   </div>
 </template>
-
-<script>
-export default {
-  name: "CreateSurveyParamsPage",
-};
-</script>

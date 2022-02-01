@@ -124,7 +124,7 @@ export default {
     addValue() {
       this.$emit(
         "changeForm",
-        this.$props.condition.fieldName,
+        this.$props.condition.title,
         this.valueSelected
       );
       this.valueSelected = "";
@@ -149,8 +149,8 @@ export default {
 }
 
 .condition {
-  border-bottom: 1px solid rgba(153, 205, 50, 0.3);
-  background-color: rgba(221, 255, 153, 0.1);
+  border-bottom: 1px solid rgba(0, 128, 0, 0.4);
+  background-color: rgb(223, 243, 255);
   padding: 15px 12px 0;
   display: flex;
   flex-direction: column;
@@ -170,7 +170,7 @@ export default {
 }
 
 .condition__title {
-  color: rgb(168, 103, 4);
+  color: darkgreen;
   margin-bottom: 15px;
 }
 
@@ -182,7 +182,7 @@ export default {
 .condition__type_span {
   border: 1px solid #ccc;
   border-radius: 3px;
-  background-color: rgb(238, 255, 205);
+  background-color: #fafafa;
   margin-right: 5px;
   padding: 3px;
   font-size: 16px;
@@ -214,7 +214,7 @@ export default {
 .condition__option-box {
   border: 1px solid #ccc;
   border-radius: 3px;
-  background-color: rgb(255, 255, 255);
+  background-color: #fafafa;
   margin: 0 5px;
   width: 60px;
   height: 24px;
@@ -238,8 +238,8 @@ export default {
 }
 
 .condition__button_succes {
-  border: 2px solid rgb(105, 177, 105);
-  background-color: rgba(204, 255, 204, 0.3);
+  border: 2px solid rgba(105, 177, 105, 0.5);
+  background-color: rgba(204, 255, 204, 0.75);
 }
 
 .condition__button_danger {

@@ -1,12 +1,5 @@
 <template>
   <div>
-    <PagesAppCreateSurvey />
-    <!-- <NuxtChild /> -->
+    <RouteCreateSurvey />
   </div>
 </template>
-
-<script>
-export default {
-  name: "CreateSurveyPage",
-};
-</script>

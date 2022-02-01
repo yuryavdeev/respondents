@@ -1,11 +1,5 @@
 <template>
   <div>
-    <PagesAppCreateSurveyConditions />
+    <FormConditions />
   </div>
 </template>
-
-<script>
-export default {
-  name: "CreateSurveyConditionsPage",
-};
-</script>

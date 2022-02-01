@@ -1,9 +1,3 @@
 <template>
-  <PagesAppBlacklists />
+  <RouteBlacklists />
 </template>
-
-<script>
-export default {
-  name: 'PageBlacklists'
-}
-</script>

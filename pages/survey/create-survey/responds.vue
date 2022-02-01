@@ -1,11 +1,5 @@
 <template>
   <div>
-    <PagesAppCreateSurveyResponds />
+    <FormResponds />
   </div>
 </template>
-
-<script>
-export default {
-  name: "CreateSurveyRespondsPage",
-};
-</script>

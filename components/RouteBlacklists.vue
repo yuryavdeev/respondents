@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "AppBlacklists",
+  name: "Blacklists",
   mounted() {
     this.$store.commit("setCurrentRootPageName", this.$route.path);
   },

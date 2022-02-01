@@ -1,35 +1,37 @@
 
+import callCenter from "../assets/images/call-center.svg"
+import user from "../assets/images/user.svg"
+import blacklist from "../assets/images/blacklist.svg"
+import survey from "../assets/images/survey.svg"
+
 export const state = () => ({
-  user: "Alexandr C.",
+  user: "User #555",
   links: [
-    { rootRoute: true, route: "/survey", name: "Опросы" },
-    { rootRoute: true, route: "/users", name: "Пользователи" },
-    { rootRoute: true, route: "/blacklists", name: "Черные списки" },
-    { rootRoute: true, route: "/call-center", name: "Колл-центр" },
+    { rootRoute: true, route: "/survey", name: "Опросы", url: survey },
+    { rootRoute: true, route: "/users", name: "Пользователи", url: user },
+    { rootRoute: true, route: "/blacklists", name: "Черные списки", url: blacklist },
+    { rootRoute: true, route: "/call-center", name: "Колл-центр", url: callCenter },
   ],
+
   currentRootPageName: "", // - "Пользователи"
   currentRootRoute: "", // - "/users"
   currentChildrenPageName: "", // - "Добавить опрос"
   conditions: [],
-
   initialConditions: [
     {
       title: 'Возраст респондента',
-      fieldName: 'age',
       id: 1,
       optionsType: 'Диапазон',
       options: ['18-40', '41-99']
     },
     {
       title: 'Тип карты лояльности',
-      fieldName: 'cardType',
       id: 2,
       optionsType: 'Тип',
       options: ['Gold', 'Silver', 'Classic']
     },
     {
       title: 'Статус карты лояльности',
-      fieldName: 'cardStatus',
       id: 3,
       optionsType: 'Статус',
       options: ['Активна', 'Заблокирована']
@@ -54,7 +56,6 @@ export const mutations = {
     state.currentRootPageName = data.currentRootPageName
     state.currentChildrenPageName = data.currentChildrenPageName
     state.currentRootRoute = data.currentRootRoute
-
   },
 
   addCondition(state, name) {
@@ -69,14 +70,10 @@ export const mutations = {
 
 
 export const actions = {
-  async addResult({ state }) {
-    try {
-      await setTimeout(() => {
-        return true
-      }, 100)
-    } catch (err) {
-      console.log(err)
-    }
+  async addResult({ state }, form) {
+    // await... -> fetch-запрос -> обновление store
+    const newForm = {}
+    return newForm
   }
 }
 

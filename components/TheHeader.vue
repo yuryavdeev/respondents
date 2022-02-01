@@ -5,14 +5,17 @@
         class="header__search"
         :style="{ backgroundImage: `url(${backgroundImagePathSearch})` }"
         type="text"
-        placeholder="Поиск по системе. Начните вводить символы."
+        placeholder="Поиск..."
         v-model="inputValue"
         @input="handleInput"
       />
       <p class="header__user">{{ user }}</p>
     </div>
 
-    <div v-if="$store.getters.currentRootPageName" class="header__route">
+    <div
+      v-if="$store.getters.currentRootPageName && $route.path !== '/'"
+      class="header__route"
+    >
       <img
         class="header__route-image"
         src="~/assets/images/location.svg"
@@ -28,7 +31,7 @@
 
       <p
         v-if="$store.getters.currentChildrenPageName"
-        class="header__route-caption "
+        class="header__route-caption"
         :style="{ backgroundImage: `url(${backgroundImagePath})` }"
       >
         {{ $store.getters.currentChildrenPageName }}
@@ -111,6 +114,5 @@ export default {
 
 .header__route-link {
   color: rgba(0, 0, 0, 1);
-
 }
 </style>

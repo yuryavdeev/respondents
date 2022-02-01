@@ -11,7 +11,8 @@
       </NuxtLink>
     </nav>
     <form class="survey__form">
-      <h2 class="survey__form_title">Добавить опрос</h2>
+      <h2 class="survey__form-title">Добавить опрос</h2>
+      <!-- FormResponds.vue -> ниже -->
       <NuxtChild />
     </form>
   </div>
@@ -49,7 +50,7 @@ export default {
 }
 
 .survey__link {
-  color: yellowgreen;
+  color: green;
   text-decoration: none;
   margin: 10px 0 0;
   font-size: 15px;
@@ -57,20 +58,20 @@ export default {
 }
 
 .nuxt-link-active {
-  border-bottom: 2px solid yellowgreen;
+  border-bottom: 2px solid green;
 }
 
 .survey__form {
-  border: 2px solid rgba(153, 205, 50, 0.3);
-  border-radius: 2px;
+  border: 2px solid rgba(0, 128, 0, 0.4);
+  border-radius: 4px;
   padding: 12px 0;
-  background-color: rgb(250, 250, 250);
+  background-color: #fafafa;
 }
 
-.survey__form_title {
-  font-size: 12px;
+.survey__form-title {
+  font-size: 14px;
   margin: 0 0 15px 12px;
-  color: #ccc;
+  color: rgb(122, 122, 122);
   line-height: 1.6;
 }
 </style>

@@ -1,9 +1,3 @@
 <template>
-  <PagesAppCallCenter />
+  <RouteCallCenter />
 </template>
-
-<script>
-export default {
-  name: 'PageCallCenter'
-}
-</script>

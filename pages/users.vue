@@ -1,9 +1,3 @@
 <template>
-  <PagesAppUsers />
+  <RouteUsers />
 </template>
-
-<script>
-export default {
-  name: 'UsersPage'
-}
-</script>

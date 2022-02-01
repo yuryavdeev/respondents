@@ -1,7 +1,7 @@
 <template>
   <div class="survay">
     <h1>Страница - "{{ title }}"</h1>
-    <NuxtLink class="survey__link" to="/survey/create-survey">Создать заявку</NuxtLink>
+    <NuxtLink class="survey__link" to="/survey/create-survey">Добавить опрос</NuxtLink>
   </div>
 </template>
 

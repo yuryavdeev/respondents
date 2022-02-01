@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>
+    <h3 style="margin-left: 15px;">
       Создание опроса. Параметры.
     </h3>
   </div>

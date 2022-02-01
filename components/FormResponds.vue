@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppRespondsItem
+    <FormRespondsItem
       v-for="(condition, i) in conditions"
       :key="condition.id"
       :condition="condition"
@@ -8,13 +8,19 @@
       :conditionsLength="conditions.length"
       @changeForm="handleChangeForm"
     />
-    <AppRespondsItemEmpty />
-    <div class="responds__add" @click="addNewSurvey">
-      <h3 class="responds__plus">+</h3>
-      <p>
-        Нажмите, чтобы добавить новые условия выборки. Все условия связываются
-        между собой логическим "И".
-      </p>
+
+    <FormRespondsAddItem />
+
+    <div v-if="Object.keys(formData).length" class="responds__form-area">
+      <h4 class="responds__form-text">Добавленные поля формы:</h4>
+      <div
+        v-for="field in Object.keys(formData)"
+        :key="field"
+        class="responds__form-field"
+      >
+        <p>{{ field }}</p>
+        <p>{{ formData[field] }}</p>
+      </div>
     </div>
 
     <div class="responds__buttons-area">
@@ -44,19 +50,19 @@
         @click="submitForm"
         :disabled="!validForm"
       >
-        Далее
+        Отправить
       </button>
     </div>
   </div>
 </template>
 
 <script>
-import AppRespondsItem from "@/components/AppRespondsItem.vue";
-import AppRespondsItemEmpty from "@/components/AppRespondsItemEmpty.vue";
+import FormRespondsItem from "./FormRespondsItem.vue";
+import FormRespondsAddItem from "./FormRespondsAddItem.vue";
 export default {
-  name: "CreateSurveyResponds",
+  name: "FormResponds",
 
-  components: { AppRespondsItem, AppRespondsItemEmpty },
+  components: { FormRespondsItem, FormRespondsAddItem },
 
   data() {
     return {
@@ -79,21 +85,15 @@ export default {
       }, 2000);
     },
 
-    submitForm() {
-      this.resServer = this.$store.dispatch("addResult", this.formData);
+    async submitForm() {
+      const res = await this.$store.dispatch("addResult", this.formData);
+      this.formData = { ...res };
       this.validForm = false;
-      Object.keys(this.formData).forEach((field) => {
-        delete this.formData[field];
-      });
+
+      this.resServer = true;
       setTimeout(() => {
         this.resServer = false;
       }, 2000);
-    },
-
-    addNewSurvey() {
-      console.log(
-        "попап с формой - сабмит на сервер - ответ - добавление условия в initialConditions"
-      );
     },
   },
 
@@ -120,29 +120,15 @@ export default {
 </script>
 
 <style scoped>
-.responds__plus {
-  margin: 10px 0 0;
-}
-
-.responds__add {
-  color: green;
-  font-size: 18px;
-  text-align: center;
-  margin: 10px;
-  border: 2px solid rgba(204, 204, 204, 0.521);
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .responds__buttons-area {
-  padding: 12px;
+  padding: 12px 12px 0;
   display: flex;
   justify-content: space-between;
 }
 
 .responds__message {
-  margin: 0;
-  color: teal;
+  margin: 5px 0;
+  color: green;
 }
 
 .responds__button {
@@ -163,7 +149,37 @@ export default {
 }
 
 .responds__submit {
-  border: 2px solid rgb(105, 177, 105);
-  background-color: rgba(204, 255, 204, 0.3);
+  border: 2px solid rgba(105, 177, 105, 0.5);
+  background-color: rgba(204, 255, 204, 0.75);
+}
+
+.responds__form-area {
+  border-top: 1px solid rgba(0, 128, 0, 0.4);
+  background-color: rgb(223, 243, 255);
+  padding: 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px;
+  color: darkblue;
+}
+
+.responds__form-text {
+  font-size: 16px;
+  margin: 0;
+}
+
+.responds__form-field p {
+  margin: 0;
+  font-size: 14px;
+  color: darkgreen;
+}
+
+.responds__form-field {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 0 50px;
 }
 </style>
