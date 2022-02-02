@@ -1,4 +1,5 @@
-# Respondents - приложение-конструктор для создания опросов    
+# Respondents   
+### Приложение-конструктор для создания опросов    
 
 Создано с помощью Vue и Nuxt(SPA).   
 
@@ -11,14 +12,11 @@ https://yuryavdeev.github.io/respondents/survey/create-survey/responds
 2. Добавленные поля можно удалить нажатием на соответствующую кнопку на самом поле.    
 3. Нижний "селект" на поле условия - для отображения выбранной опции до ее добавления в форму.  
 4. Нажатие кнопки "Протестировать опрос" выводит сообщение о заполненности формы.    
-5. Нажатие на кнопку "Далее" отправляет данные формы и потом очищает их.
+5. Нажатие на кнопку "Отправить" отправляет данные формы и потом очищает их.
 6. Все "отправляющие" кнопки (зеленые) становятся доступными после валидации данных.
 
-### development
-npm install -> npm run dev
+### development: npm install -> npm run dev
 
-### production
-npm run build -> npm run start
+### production: npm run build -> npm run start
 
-### static project
-npm run generate
+### static project: npm run generate
