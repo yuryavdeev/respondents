@@ -24,7 +24,7 @@ export default {
 
 <style scoped>
 .survey__link {
-  color: rgba(0, 0, 0, 0.575);
+  color: rgba(4, 0, 255, 0.75);
   outline: none;
   text-decoration: none;
   font-size: 15px;

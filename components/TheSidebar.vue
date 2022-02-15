@@ -50,6 +50,7 @@ export default {
   left: 0;
   width: 20%;
   max-width: 150px;
+  height: 100vh;
   border: 2px solid #ccc;
   border-top: none;
   box-sizing: border-box;
